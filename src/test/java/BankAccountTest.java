@@ -19,4 +19,28 @@ public class BankAccountTest {
 
         assertEquals(1000.0, account.getBalance());
     }
+
+    @Test
+    void multipleDepositsShouldAddUp() {
+        BankAccount account = new BankAccount();
+
+        account.deposit(1000);
+        account.deposit(500);
+        account.deposit(250);
+
+        assertEquals(1750.0, account.getBalance());
+    }
+
+    @Test
+    void negativeDepositShouldThrowException() {
+        BankAccount account = new BankAccount();
+
+        account.deposit(1000);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            account.deposit(-500);
+        });
+
+        assertEquals(1000.0, account.getBalance());
+    }
 }
