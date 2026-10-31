@@ -16,6 +16,14 @@ public class BankAccount {
     }
 
     public void withdraw(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("A pénzfelvétel összege csak pozitív lehet.");
+        }
+
+        if (amount > balance) {
+            throw new IllegalArgumentException("Nincs elegendő pénz a számlán.");
+        }
+
         balance -= amount;
     }
 
