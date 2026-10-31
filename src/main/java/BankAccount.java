@@ -4,24 +4,21 @@ public class BankAccount {
     private double balance;
 
     public BankAccount() {
-        balance = 0.0;
+        this.balance = 0.0;
     }
 
     public void deposit(double amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("A befizetés összege csak pozitív lehet.");
-        }
-
+        validateAmount(amount);
         balance += amount;
     }
 
     public void withdraw(double amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("A pénzfelvétel összege csak pozitív lehet.");
-        }
+        validateAmount(amount);
 
         if (amount > balance) {
-            throw new IllegalArgumentException("Nincs elegendő pénz a számlán.");
+            throw new IllegalArgumentException(
+                "Nincs elegendő pénz a számlán."
+            );
         }
 
         balance -= amount;
@@ -29,5 +26,13 @@ public class BankAccount {
 
     public double getBalance() {
         return balance;
+    }
+
+    private void validateAmount(double amount) {
+        if (!Double.isFinite(amount) || amount <= 0) {
+            throw new IllegalArgumentException(
+                "Az összegnek pozitív, véges számnak kell lennie."
+            );
+        }
     }
 }
